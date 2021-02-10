@@ -11,19 +11,25 @@ import User from "@modules/users/infra/typeorm/entities/User";
   @Entity("files", { database: "sabm" })
   class File {
     @PrimaryGeneratedColumn("increment")
-    id_arquivo: number;
+    codigoArquivo: number;
   
     @Column("int")
-    cod_user: number;
+    codigoUsuario: number;
   
     @Column("varchar")
-    nome_arquivo: string;
+    nome: string;
 
-    @Column("text")
-    hash_file: string;
+    @Column("varchar")
+    arquivo: string;
+
+    @Column("varchar")
+    url: string;
+
+    @Column("longtext")
+    cripto: string;
   
     @ManyToOne(() => User)
-    @JoinColumn({ name: "cod_user" })
+    @JoinColumn({ name: "codigoUsuario" })
     user: User;
 }
   

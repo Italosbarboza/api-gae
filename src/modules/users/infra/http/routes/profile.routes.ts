@@ -17,11 +17,11 @@ profileRouter.put(
   "/",
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
+      nome: Joi.string().required(),
+      identificacao: Joi.string().required(),
       email: Joi.string().email().required(),
-      old_password: Joi.string(),
-      password: Joi.string(),
-      password_confirmation: Joi.string().valid(Joi.ref("password")),
+      senha: Joi.string(),
+      tipo: Joi.string()
     },
   }),
   profileController.update,

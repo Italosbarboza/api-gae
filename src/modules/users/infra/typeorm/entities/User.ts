@@ -2,44 +2,35 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Exclude, Expose } from "class-transformer";
+
+import Phone from './Phone';
 
 @Entity("users", { database: "sabm" })
 class User {
   @PrimaryGeneratedColumn("increment")
-  id: string;
+  codigoUsuario: string;
 
   @Column("varchar")
-  name: string;
+  nome: string;
+
+  @Column("varchar")
+  identificacao: string;
 
   @Column("varchar")
   email: string;
 
   @Column("varchar")
   @Exclude()
-  password: string;
+  senha: string;
 
-  @Column("varchar")
-  avatar: string;
+  @Column("int")
+  tipo: number;
 
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  @Column("varchar")
-  acesso: string;
-
-  @Expose({ name: "avatar_url" })
-  getAvatarUrl(): string | null {
-    return this.avatar
-      ? `${process.env.APP_API_URL}/files/${this.avatar}`
-      : null;
-  }
+  @OneToMany(() => Phone, phone => phone.user)
+  phone: Phone[];
 }
 
 export default User;
